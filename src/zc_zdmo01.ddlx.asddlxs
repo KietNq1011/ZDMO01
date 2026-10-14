@@ -1,0 +1,92 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Khách hàng',
+                     typeNamePlural: 'Khách hàng',
+                     title: { type: #STANDARD, value: 'CustomerName' },
+                     description: { type: #STANDARD, value: 'CustomerID' } },
+       presentationVariant: [ { sortOrder: [ { by: 'CustomerID', direction: #ASC } ],
+                                visualizations: [ { type: #AS_LINEITEM } ] } ] }
+
+annotate entity ZC_ZDMO01 with
+{
+  @UI.facet: [ { id: 'HeaderExport',
+                 purpose: #HEADER,
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'Export',
+                 label: 'Bảng kê',
+                 position: 10 },
+               { id: 'Customer',
+                 purpose: #STANDARD,
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'Customer',
+                 label: 'Thông tin khách hàng',
+                 position: 10 } ]
+
+  // nút Export Excel: thanh công cụ bảng (chọn 1 hoặc nhiều dòng) + header trang chi tiết
+  @EndUserText.label: 'Customer ID'
+  @UI: { lineItem:       [ { position: 10, importance: #HIGH },
+                           { type: #FOR_ACTION, dataAction: 'ExportExcel', label: 'Export Excel' } ],
+         identification: [ { type: #FOR_ACTION, dataAction: 'ExportExcel', label: 'Export Excel' } ],
+         selectionField: [ { position: 10 } ],
+         fieldGroup:     [ { qualifier: 'Customer', position: 10 } ] }
+  @Consumption.valueHelpDefinition: [ { entity: { name: '/DMO/I_Customer_StdVH', element: 'CustomerID' } } ]
+  CustomerID;
+
+  @EndUserText.label: 'Khách hàng'
+  @UI: { lineItem:   [ { position: 20, importance: #HIGH } ],
+         fieldGroup: [ { qualifier: 'Customer', position: 20 } ] }
+  CustomerName;
+
+  @UI.hidden: true
+  Title;
+
+  @EndUserText.label: 'Địa chỉ'
+  @UI: { fieldGroup: [ { qualifier: 'Customer', position: 30 } ] }
+  Street;
+
+  @EndUserText.label: 'Mã bưu chính'
+  @UI: { fieldGroup: [ { qualifier: 'Customer', position: 40 } ] }
+  PostalCode;
+
+  @EndUserText.label: 'Thành phố'
+  @UI: { lineItem:       [ { position: 30, importance: #MEDIUM } ],
+         selectionField: [ { position: 20 } ],
+         fieldGroup:     [ { qualifier: 'Customer', position: 50 } ] }
+  City;
+
+  @EndUserText.label: 'Quốc gia'
+  @UI: { lineItem:       [ { position: 40, importance: #MEDIUM } ],
+         selectionField: [ { position: 30 } ],
+         fieldGroup:     [ { qualifier: 'Customer', position: 60 } ] }
+  CountryCode;
+
+  @EndUserText.label: 'Điện thoại'
+  @UI: { fieldGroup: [ { qualifier: 'Customer', position: 70 } ] }
+  PhoneNumber;
+
+  @EndUserText.label: 'Email'
+  @UI: { lineItem:   [ { position: 50, importance: #LOW } ],
+         fieldGroup: [ { qualifier: 'Customer', position: 80 } ] }
+  EmailAddress;
+
+  // file đã xuất — bấm để tải; trống = chưa Export Excel
+  @EndUserText.label: 'Bảng kê'
+  @UI: { lineItem:   [ { position: 90, importance: #HIGH } ],
+         fieldGroup: [ { qualifier: 'Export', position: 10 } ] }
+  Attachment;
+
+  @UI.hidden: true
+  Mimetype;
+
+  @UI.hidden: true
+  Filename;
+
+  @EndUserText.label: 'Xuất bởi'
+  @UI: { fieldGroup: [ { qualifier: 'Export', position: 30 } ] }
+  ExportedBy;
+
+  @EndUserText.label: 'Xuất lúc'
+  @UI: { lineItem:   [ { position: 95, importance: #LOW } ],
+         fieldGroup: [ { qualifier: 'Export', position: 20 } ] }
+  ExportedAt;
+}

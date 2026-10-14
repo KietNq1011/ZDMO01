@@ -1,0 +1,26 @@
+{
+  "printed_on": "2026-10-14",
+  "customer": "Sample Customer",
+  "address": "1 Sample Street, 10000 Sample City, DE",
+  "email": "customer@example.com",
+  "travels": [
+    {
+      "travel_id": "00000001",
+      "agency": "Sunshine Travel",
+      "begin_date": "2026-10-20",
+      "end_date": "2026-10-25",
+      "status": "B",
+      "total_price": 2435.0,
+      "currency": "EUR"
+    },
+    {
+      "travel_id": "00000002",
+      "agency": "Fly High",
+      "begin_date": "2026-11-05",
+      "end_date": "2026-11-10",
+      "status": "N",
+      "total_price": 1180.5,
+      "currency": "EUR"
+    }
+  ]
+}

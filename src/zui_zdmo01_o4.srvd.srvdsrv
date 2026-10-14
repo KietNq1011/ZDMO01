@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service Definition for ZDMO01'
+define service ZUI_ZDMO01_O4
+  provider contracts odata_v4_ui {
+  expose ZC_ZDMO01             as Customer;
+  expose /DMO/I_Customer_StdVH as CustomerVH;
+}

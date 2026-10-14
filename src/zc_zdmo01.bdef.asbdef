@@ -1,0 +1,8 @@
+projection;
+strict ( 2 );
+use side effects;
+
+define behavior for ZC_ZDMO01 alias Customer
+{
+  use action ExportExcel;
+}

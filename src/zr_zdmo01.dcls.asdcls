@@ -1,0 +1,10 @@
+@EndUserText.label: 'Access Control for ZR_ZDMO01'
+@MappingRole: true
+define role ZR_ZDMO01 {
+  grant
+    select
+      on
+        ZR_ZDMO01
+          where
+            TRUE;
+}

@@ -1,0 +1,29 @@
+managed implementation in class zbp_r_zdmo01 unique;
+strict ( 2 );
+
+// Dữ liệu khách hàng thuộc /DMO/ (chỉ đọc). BO chỉ có action xuất bảng kê (khuôn ZWM13A):
+// render template ZDMO01 (ZXLSX_TMPL) qua ZCL_XLSX_ATT_EXPORT, lưu vào bộ attachment
+// (module 'DMO', app 'ZDMO01', document = CustomerID). persistent table chỉ để thoả
+// managed — không có create/update/delete nên framework không ghi bảng này.
+define behavior for ZR_ZDMO01 alias Customer
+persistent table ztb_att_dmo
+lock master
+authorization master ( global )
+{
+  field ( readonly ) CustomerID;
+
+  action ExportExcel result [1] $self;
+
+  side effects
+  {
+    action ExportExcel affects field Attachment, field Mimetype, field Filename,
+                               field ExportedBy, field ExportedAt;
+  }
+
+  mapping for ztb_att_dmo
+    {
+      Attachment = attachment;
+      Filename   = filename;
+      Mimetype   = mimetype;
+    }
+}
